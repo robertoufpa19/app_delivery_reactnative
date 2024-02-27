@@ -15,8 +15,7 @@ const StyledSectionList = styled(SectionList)
 const StyledFlatList = styled(FlatList)
 const StyledView = styled(View)
 const StyledText = styled(Text) 
-
-
+ 
 export default function Home(){ 
 
   const [category, setCategory] = useState(CATEGORIES[0])

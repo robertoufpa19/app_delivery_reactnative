@@ -1,5 +1,7 @@
 
-import {View, Text, ScrollView, Alert} from 'react-native';
+import {useState} from "react"
+import {View, Text, ScrollView, Alert, Linking} from 'react-native';
+import { useNavigation } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view"
 import { styled } from 'nativewind'
@@ -13,14 +15,19 @@ import { fromatCurrency } from './../utils/functions/format-currency';
 import { Input } from './../components/input';
 import { LinkButton } from './../components/link-button';
 
+const PHONE_NUMBER = "5591985288101"
+
 
 
 const StyledView = styled(View)
 const StyledText = styled(Text)
 
 export default function Cart(){
-
+    const [address, setAddress] = useState("")
     const cartStore = useCartStore()
+    const navigation = useNavigation()
+
+
     const total = fromatCurrency(cartStore.products.reduce(
       (total, product) => total + product.price * product.quantity, 0
     ))
@@ -30,11 +37,35 @@ export default function Cart(){
         {
           text:"Cancelar", 
         },
-        {
+        { 
           text:"Remover",
           onPress: () => cartStore.remove(product.id)
         },
        ])
+    }
+     /// verificar se o usuario inseriu 0 endereço de entrega
+    function handleOrder(){
+      if(address.trim().length === 0){
+        return Alert.alert("Pedido ", "Informe o endereço de entrega")
+      }
+
+      // recuperar informações do pedido
+      const products = cartStore.products
+      .map((product) => `\n ${product.quantity} ${product.title}`)
+      .join("")
+
+      const message = `📄 NOVO PEDIDO 
+      \n🏠 Entregar em: ${address} 
+      \n🍔 ${products} 
+      \n💰 Valor Total: ${total}` 
+
+      // enviar msg para o whatsApp
+      Linking.openURL(`http://api.whatsapp.com/send?phone=${PHONE_NUMBER}&text=${message}`)
+
+      cartStore.clearCarrinho()
+      ///voltar para a tela anterio
+      navigation.goBack()
+
     }
 
     return (
@@ -60,12 +91,14 @@ export default function Cart(){
       <StyledText className="text-lime-400 text-2xl font-heading">{total}</StyledText>
     </StyledView>
 
-    <Input  placeholder="Informe o endereço de entrega"/>
+    <Input  placeholder="Informe o endereço de entrega"
+      onChangeText={setAddress}/>
+
     </StyledView>
 
 
     <StyledView className="p-2 gap-5"> 
-    <Button>
+    <Button onPress={handleOrder}>
       <Button.Text>Enviar Pedido</Button.Text>
       <Button.Icon>
         <Feather name="arrow-right-circle"size={20}/>

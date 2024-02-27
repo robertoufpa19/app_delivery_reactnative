@@ -16,6 +16,7 @@ type StateProps = {
     products: ProductCardProps[]
     add: (product: ProductProps) => void
     remove: (productId: string) => void
+    clearCarrinho: () => void 
 }
 
 export const useCartStore = create(
@@ -31,6 +32,8 @@ export const useCartStore = create(
      set((state) => ({
         products: cartInMemory.remove(state.products, productId),
      })),
+
+     clearCarrinho: () => set(() => ({products: []})),
 
     }), 
     {
