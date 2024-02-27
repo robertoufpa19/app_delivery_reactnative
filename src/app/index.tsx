@@ -2,7 +2,7 @@
 import React from 'react'
 import {useState, useRef} from 'react'
 import {Text, View, FlatList, SectionList} from 'react-native'
-import {CATEGORIES, MENU} from "../utils/data/products"
+import {CATEGORIES, MENU, ProductProps} from "../utils/data/products"
 import { withExpoSnack } from 'nativewind'
 import { styled } from 'nativewind'
 import { Header } from "../components/header"
@@ -14,20 +14,20 @@ import {useCartStore} from "./../app/stores/cart-store"
 const StyledSectionList = styled(SectionList)
 const StyledFlatList = styled(FlatList)
 const StyledView = styled(View)
-const StyledText = styled(Text)
+const StyledText = styled(Text) 
 
 
-export default function Home(){
+export default function Home(){ 
 
   const [category, setCategory] = useState(CATEGORIES[0])
-  const sectionListRef = useRef<StyledSectionList>(null)
+  const sectionListRef = useRef<StyledSectionList<ProductProps>>(null)
   const cartStore = useCartStore();
 
   const cartQuantityItems = cartStore.products.reduce((total, product) => total + product.quantity, 0)
 
   function handleCategorySelect(selectedCategory: string){
     setCategory(selectedCategory) 
-    
+     
     const sectionIndex = CATEGORIES.findIndex((category) => category === selectedCategory)
 
     if(sectionListRef.current){
@@ -35,15 +35,15 @@ export default function Home(){
         animated: true,
         sectionIndex,
         itemIndex:0,
-      })
+      }) 
     }
 
   }
 
   return(
-    <StyledView className = "flex-1 pt-10">
+    <StyledView className="flex-1 pt-10 ">
       
-     <Header title ="Faça seu pedido" cartQuantityItems={cartQuantityItems}/>
+     <Header title="Faça seu pedido" cartQuantityItems={cartQuantityItems}/>
 
      <StyledFlatList
        data={CATEGORIES}
@@ -52,14 +52,14 @@ export default function Home(){
         <CategoryButton title={item} isSelected={item === category}
          onPress={() => handleCategorySelect(item)}/>}
        horizontal
-       className = "max-h-10 mt-5" 
+       className="h-20 mt-5" 
        showsHorizontalScrollIndicator ={false}
        contentContainerStyle={{gap: 12, paddingHorizontal: 20}}
      />
-
+ 
      <StyledSectionList 
-     ref={sectionListRef} 
-     sections={MENU}
+     ref={sectionListRef}  
+     sections={MENU} 
      keyExtractor={(item) =>item.id}
      stickySectionHeadersEnabled={false}
      renderItem={({item})=>(
@@ -68,11 +68,10 @@ export default function Home(){
      </Link>
      )}
      
-
      renderSectionHeader={({section:{title}}) =>( 
       <StyledText className ="text-xl text-white font-heading mt-8 mb-3">
         {title}
-      </StyledText>)} 
+      </StyledText>)}
 
       className="flex-1 p-5"
       showsVerticalScrollIndicator={false}
@@ -83,6 +82,6 @@ export default function Home(){
     </StyledView>
   )
 
-}
+}  
 
 export default withExpoSnack(Home);

@@ -10,6 +10,7 @@ import { fromatCurrency } from './../../utils/functions/format-currency';
 import {Button} from "./../../components/button"
 import { LinkButton } from './../../components/link-button';
 import {useCartStore} from "../stores/cart-store"
+import { Redirect } from 'expo-router'
 
 
 const StyledView = styled(View)
@@ -20,21 +21,29 @@ export default function Product(){
     const cartStore = useCartStore()
     const navigation = useNavigation()
     const { id } = useLocalSearchParams()
-    const product = PRODUCTS.filter((item) => item.id === id)[0] 
+    const product = PRODUCTS.find((item) => item.id === id)
 
    function handleAddToCart(){
+      if(product){
       cartStore.add(product)
       navigation.goBack()
+      }
    }
 
+   if(!product){
+      return <Redirect href="/" />
+   }
 
     return( 
     <StyledView className="flex-1"> 
     <StyledImage source={product.cover} className="w-full h-52"
-    resizeMode="cover"
+      resizeMode="cover"
     />
 
    <StyledView className="p-5 mt-8 flex-1">
+
+   <StyledText className="text-white text-xl font-heading">{product.title}</StyledText>
+
     <StyledText className="text-lime-400 text-2xl font-heading my-2">
        { fromatCurrency(product.price)}
     </StyledText>

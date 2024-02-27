@@ -19,6 +19,7 @@ type ProductDataProps ={
     title: string
     description: string
     thumbnail: ImageProps
+    quantity?: number
 }
 type ProductProps = TouchableOpacityProps & {
     data: ProductDataProps
@@ -32,14 +33,24 @@ export const Product= forwardRef<TouchableOpacity, ProductProps>(({data, ...rest
         classname ="w-full flex-row items-center pb-4" {...rest}>
          <StyledImage source={data.thumbnail} className="w-20 h-20 rounded-md"/>
             <StyledView className="flex-1 ml-3">
+
+            <StyledView className="flex-row items-center">
               <StyledText  className="text-slate-100 font-subtitle text-base flex-1">
                 {data.title}
                 </StyledText>
+                {
+                    data.quantity &&(
+                    <StyledText className="text-slate-400 font-subtitle text-sm"> x {data.quantity}</StyledText>
+                )}
+            </StyledView>
+
               <StyledText className="text-slate-400 font-subtitle text-base flex-1">
                 {data.description}
                 </StyledText>
+
+
             </StyledView>
         </StyledTouchableOpacity>
     )
 })
-export default withExpoSnack(Product); 
+export default withExpoSnack(Product);  

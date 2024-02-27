@@ -1,13 +1,11 @@
 
 import React from 'react'
 import {View, Image, Text, TouchableOpacity} from 'react-native'
-
-import { withExpoSnack } from 'nativewind';
-
-import { styled } from 'nativewind';
-
+import { withExpoSnack } from 'nativewind'
+import { styled } from 'nativewind'
 import {Feather} from "@expo/vector-icons"
 import colors from "tailwindcss/colors"
+import { Link } from 'expo-router'
 
 const StyledView = styled(View)
 const StyledImage = styled(Image)
@@ -35,6 +33,7 @@ export  function Header({title, cartQuantityItems = 0}: HeaderProps){
    
    cartQuantityItems > 0 &&(
    
+    <Link href="/cart" asChild>
    <StyledTouchableOpacity className="relative" activeOpacity={0.5}>
      <StyledView className="bg-lime-300 w-4 h-4 rounded-full items-center justify-center top-2 z-10 -right-3">
        <StyledText className="text-slate-900 font-bold text-xs">{cartQuantityItems}</StyledText>
@@ -43,6 +42,7 @@ export  function Header({title, cartQuantityItems = 0}: HeaderProps){
       <Feather name="shopping-cart" color={colors.white} size={24} />
 
     </StyledTouchableOpacity>
+    </Link>
     )}
 
     </StyledView>
