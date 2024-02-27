@@ -27,7 +27,7 @@ export default function Home(){
 
   function handleCategorySelect(selectedCategory: string){
     setCategory(selectedCategory) 
-     
+    
     const sectionIndex = CATEGORIES.findIndex((category) => category === selectedCategory)
 
     if(sectionListRef.current){

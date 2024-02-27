@@ -1,10 +1,10 @@
 
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView, Alert} from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view"
 import { styled } from 'nativewind'
 
-import {useCartStore} from "../app/stores/cart-store"
+import {useCartStore, ProductCartProps} from "../app/stores/cart-store"
 
 import {Header } from "../components/header" 
 import {Product} from "../components/product"
@@ -25,6 +25,17 @@ export default function Cart(){
       (total, product) => total + product.price * product.quantity, 0
     ))
 
+    function handleProductRemove(product: ProductCartProps){
+       Alert.alert("Remover",`Deseja remover ${product.title} do carrinho`, [
+        {
+          text:"Cancelar", 
+        },
+        {
+          text:"Remover",
+          onPress: () => cartStore.remove(product.id)
+        },
+       ])
+    }
 
     return (
     <StyledView className="flex-1 pt-10">
@@ -35,7 +46,7 @@ export default function Cart(){
         {cartStore.products.length > 0 ?(
        <StyledView className="border-b-2 border-slate-700"> 
          {cartStore.products.map((product) => (
-           <Product key={product.id} data={product}/>
+           <Product key={product.id} data={product} onPress={() => handleProductRemove(product)}/>
          ))}
        </StyledView>
     ) : (
