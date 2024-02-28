@@ -4,10 +4,10 @@ const MENU = [
     data: [
       {
         id: "1",
-        title: "X-React",
+        title: "X-Burg-Duplo",
         price: 24.9,
         description:
-          "Um hamburger tão bonito que me deu fome enquanto eu fazia esse layout para o projeto...",
+          "Um hamburger tão bonito e tão delicioso para duas pessoas",
         cover: require("../../assets/products/cover/1.png"),
         thumbnail: require("../../assets/products/thumbnail/1.png"),
         ingredients: [
@@ -28,13 +28,14 @@ const MENU = [
     data: [
       {
         id: "2",
-        title: "X-JavaScript",
+        title: "X-Calabresa-Carne",
         price: 34.9,
         description:
-          "Os ingredientes desse hambúrguer mudam toda semana, então você sempre terá uma surpresa...",
+          "Os ingredientes desse hambúrguer mudam todo dia, então você sempre terá uma surpresa!",
         cover: require("../../assets/products/cover/2.png"),
         thumbnail: require("../../assets/products/thumbnail/2.png"),
         ingredients: [
+          "Calabresa;",
           "Pão brioche;",
           "2x carnes smash (blend da casa) de 80g;",
           "Queijo cheddar;",
@@ -47,10 +48,10 @@ const MENU = [
       },
       {
         id: "3",
-        title: "X-Cobol",
+        title: "X-Red-Duplo",
         price: 32.7,
         description:
-          "Aquele hambúrguer que não podemos tirar do cardápio devido aos clientes mais antigos da hamburgueria...",
+          "Aquele hambúrguer que não podemos tirar do cardápio devido a sua aparencia exotica e seu sabor delicioso.",
         cover: require("../../assets/products/cover/3.png"),
         thumbnail: require("../../assets/products/thumbnail/3.png"),
         ingredients: [
@@ -66,7 +67,7 @@ const MENU = [
       },
       {
         id: "4",
-        title: "X-Tailwind",
+        title: "X-Quatro-Queijo",
         price: 29.9,
         description:
           "Aquele que você não gosta de primeira, mas depois fica viciado e não consegue mais largar...",
@@ -90,13 +91,14 @@ const MENU = [
     data: [
       {
         id: "5",
-        title: "Sorvete com Brownie",
+        title: "Sorvete de Tapioca",
         price: 18.9,
         description:
           "Uma sobremesa deliciosa para saborear. Escolha o sorvete e a calda que desejar...",
         cover: require("../../assets/products/cover/5.png"),
         thumbnail: require("../../assets/products/thumbnail/5.png"),
         ingredients: [
+          "1x Tapioca;",
           "1x Brownie;",
           "1x Bola de sorvete a sua escolha",
           "Escolha sua calda;",
@@ -119,7 +121,7 @@ const MENU = [
     data: [
       {
         id: "7",
-        title: "Hmmm, coquinha!",
+        title: "Coca-Cola",
         price: 6.9,
         thumbnail: require("../../assets/products/thumbnail/7.png"),
         cover: require("../../assets/products/cover/7.png"),
